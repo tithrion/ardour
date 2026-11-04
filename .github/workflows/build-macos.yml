@@ -20,7 +20,6 @@ jobs:
         run: |
           brew update
           brew install python3 pkg-config boost glib glibmm@2.66 libsndfile libarchive liblo taglib vamp-plugin-sdk rubberband libusb jack aubio libpng pango libsigc++@2 cairomm@1.14 pangomm@2.46 lv2 cppunit libwebsockets sord sratom lilv
-        *Verification:* Homebrew schließt die Installation ohne kritische Fehler ab.
 
       - name: Python-Symlink sicherstellen
         run: |
@@ -33,12 +32,10 @@ jobs:
           export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:/opt/homebrew/opt/libarchive/lib/pkgconfig:$PKG_CONFIG_PATH"
           export CPLUS_INCLUDE_PATH="/opt/homebrew/include:$CPLUS_INCLUDE_PATH"
           ./waf configure --with-jack
-        *Verification:* Die Waf-Ausgabe zeigt am Ende `Configuration finished successfully`.
 
-          - name: Ardour kompilieren
-            run: |
-              ./waf
-            *Verification:* Der Compiler beendet den Prozess ohne `error:` Meldungen und erzeugt die Binärdateien.
+      - name: Ardour kompilieren
+        run: |
+          ./waf
 
       - name: Build-Artefakte hochladen
         uses: actions/upload-artifact@v4
